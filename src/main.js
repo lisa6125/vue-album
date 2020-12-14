@@ -13,7 +13,7 @@ import 'sweetalert2/dist/sweetalert2.min.css'
 import ImgInputer from 'vue-img-inputer'
 import 'vue-img-inputer/dist/index.css'
 import Photoswipe from 'vue-pswipe'
-import Vuegtag from 'vue-gtaggtag'
+import Vuegtag from 'vue-gtag'
 
 Vue.config.productionTip = false
 axios.defaults.withCredentials = true
