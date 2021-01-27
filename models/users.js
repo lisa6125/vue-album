@@ -13,6 +13,10 @@ const userSchema = new Schema({
   password: {
     type: String,
     required: [true, '請輸入密碼']
+  },
+  file: {
+    type: String,
+    required: [true, '缺少頭貼']
   }
 },
 {

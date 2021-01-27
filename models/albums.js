@@ -6,6 +6,12 @@ const albumSchema = new Schema({
   user: {
     type: String
   },
+  name: {
+    type: String
+  },
+  userpic: {
+    type: String
+  },
   description: {
     type: String,
     maxlength: [200, '說明必須兩百字以下']
