@@ -1,9 +1,6 @@
 <template>
   <div class='container home'>
     <h1 class='text-center'>歡迎使用線上相簿</h1>
-    <vue-star animate="animated bounceIn" color="#F05654">
-      <i slot="icon" class="fa fa-heart"></i>
-    </vue-star>
     <Photoswipe>
       <div v-masonry="containerId" transition-duration="0.3s" item-selector=".item">
         <div v-masonry-tile class="item" v-for="(item, index) in images" :key="index">
@@ -79,6 +76,18 @@ export default {
       width 100%
       height 100%
       object-fit cover
+    }
+    .fover{
+      height: 100px
+      position relative
+      .VueStar{
+        top 0
+        left 0
+      }
+      span{
+        position absolute
+        left 100px
+      }
     }
   }
 }

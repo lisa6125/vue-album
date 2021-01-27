@@ -13,10 +13,12 @@ import 'sweetalert2/dist/sweetalert2.min.css'
 import ImgInputer from 'vue-img-inputer'
 import 'vue-img-inputer/dist/index.css'
 import Photoswipe from 'vue-pswipe'
+import { VueMasonryPlugin } from 'vue-masonry'
 import Vuegtag from 'vue-gtag'
 
 Vue.config.productionTip = false
 axios.defaults.withCredentials = true
+Vue.use(VueMasonryPlugin)
 Vue.use(Photoswipe)
 Vue.use(VueAxios, axios)
 Vue.use(VueSweetalert2)
