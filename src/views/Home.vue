@@ -6,6 +6,12 @@
         <div v-masonry-tile class="item" v-for="(item, index) in images" :key="index">
           <div class="post">
             <img :src="item.src" v-pswp="item" alt="" />
+            <div class="faver">
+              <vue-star animate="animated bounceIn" color="#F05654">
+                <i slot="icon" class="fa fa-heart"></i>
+              </vue-star>
+              <span>{{item.count}}</span>
+            </div>
           </div>
         </div>
       </div>
@@ -14,9 +20,12 @@
 </template>
 
 <script>
-
+import VueStar from 'vue-star'
 export default {
   name: 'Home',
+  components: {
+    VueStar
+  },
   data () {
     return {
       images: []

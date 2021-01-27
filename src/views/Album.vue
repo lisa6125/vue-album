@@ -87,6 +87,7 @@ export default {
         const fd = new FormData()
         fd.append('image', this.image)
         fd.append('description', this.description)
+        fd.append('count', 0)
 
         this.axios.post(process.env.VUE_APP_API + '/albums/', fd)
           .then(res => {
