@@ -1,6 +1,5 @@
 import multer from 'multer'
 // import FTPStorage from 'multer-ftp'
-import axios from 'axios'
 import path from 'path'
 import fs from 'fs'
 
@@ -216,25 +215,12 @@ export const alluser = async (req, res) => {
 }
 
 export const file = async (req, res) => {
-  // 開發環境回傳本機圖片
-  if (process.env.DEV === 'true') {
-    const path = process.cwd() + '/images/' + req.params.file
-    const exists = fs.existsSync(path)
+  const path = process.cwd() + '/images/' + req.params.file
+  const exists = fs.existsSync(path)
 
-    if (exists) {
-      res.status(200).sendFile(path)
-    } else {
-      res.status(404).send({ success: false, message: '找不到圖片' })
-    }
+  if (exists) {
+    res.status(200).sendFile(path)
   } else {
-    axios({
-      method: 'GET',
-      url: 'http://' + process.env.FTP_HOST + '/' + process.env.FTP_USER + '/' + req.params.file,
-      responseType: 'stream'
-    }).then(ress => {
-      ress.data.pipe(res)
-    }).catch(error => {
-      res.status(error.response.status).send({ success: false, message: '取得圖片失敗' })
-    })
+    res.status(404).send({ success: false, message: '找不到檔案' })
   }
 }
