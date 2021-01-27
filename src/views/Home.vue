@@ -5,10 +5,16 @@
       <div v-masonry="containerId" transition-duration="0.3s" item-selector=".item">
         <div v-masonry-tile class="item" v-for="(item, index) in images" :key="index">
           <div class="post">
+            <div class="box d-flex justify-content-start align-items-center mb-2">
+              <div class="userpic d-inline-block mr-2">
+                <img :src="item.userpicsrc" alt="">
+              </div>
+              <span>{{item.name}}</span>
+            </div>
             <img :src="item.src" v-pswp="item" alt="" />
             <div class="faver">
-              <vue-star animate="animated bounceIn" color="#F05654">
-                <i slot="icon" class="fa fa-heart"></i>
+              <vue-star animate="animate__animated animate__bounce" color="#F05654">
+                <i slot="icon" class="fa fa-heart" @click="addnum(item)"></i>
               </vue-star>
               <span>{{item.count}}</span>
             </div>
@@ -31,14 +37,28 @@ export default {
       images: []
     }
   },
+  methods: {
+    addnum (item) {
+      if (item.dbc) {
+        item.count++
+        this.axios.patch(process.env.VUE_APP_API + '/albums/addcount/' + item._id, {
+          count: item.count
+        })
+      }
+      item.dbc = !item.dbc
+    }
+  },
   mounted () {
     this.axios.get(process.env.VUE_APP_API + '/albums/')
       .then(res => {
         if (res.data.success) {
           this.images = res.data.result.map(image => {
             image.src = process.env.VUE_APP_API + '/albums/file/' + image.file
+            image.userpicsrc = process.env.VUE_APP_API + '/albums/file/' + image.userpic
             image.title = image.description
+            image.dbc = true
             delete image.file
+            delete image.userpic
             delete image.description
             return image
           })
@@ -77,16 +97,30 @@ export default {
       height 100%
       object-fit cover
     }
-    .fover{
-      height: 100px
+    .faver{
+      width 100%
+      height: 50px
       position relative
       .VueStar{
-        top 0
-        left 0
+        top -20px
+        left -20px
+        font-size 1.8rem
       }
       span{
         position absolute
-        left 100px
+        left 60px
+        top 18px
+      }
+    }
+    .userpic{
+      height 50px
+      width 50px
+      border-radius 50%
+      overflow hidden
+      img{
+        width 100%
+        height 100%
+        object-fit cover
       }
     }
   }

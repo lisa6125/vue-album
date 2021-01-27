@@ -15,9 +15,11 @@ import 'vue-img-inputer/dist/index.css'
 import Photoswipe from 'vue-pswipe'
 import { VueMasonryPlugin } from 'vue-masonry'
 import Vuegtag from 'vue-gtag'
+import animated from 'animate.css'
 
 Vue.config.productionTip = false
 axios.defaults.withCredentials = true
+Vue.use(animated)
 Vue.use(VueMasonryPlugin)
 Vue.use(Photoswipe)
 Vue.use(VueAxios, axios)

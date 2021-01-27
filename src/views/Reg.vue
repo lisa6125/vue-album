@@ -4,7 +4,15 @@
       b-row
         b-col(cols="12")
           b-form(@submit.prevent="onSubmit" @reset="onReset")
-            b-form-group#input-group-1(
+            img-inputer.mt-4.float-right(
+              v-model="image"
+              placeholder="請選擇頭貼圖片"
+              bottom-text="點擊或拖曳更換圖片"
+              :max-size="1024"
+              exceedSizeText="檔案大小不能超過"
+              accept="image/*"
+            )
+            b-form-group#input-group-1.col-6(
               label="帳號"
               label-for="input-1"
               :state="accountState"
@@ -18,7 +26,7 @@
                 placeholder="請輸入帳號..."
                 :state="accountState"
               )
-            b-form-group#input-group-2(
+            b-form-group#input-group-2.col-6(
               label="密碼"
               label-for="input-2"
               :state="passwordState"
@@ -43,7 +51,8 @@ export default {
   data () {
     return {
       account: '',
-      password: ''
+      password: '',
+      image: null
     }
   },
   computed: {
@@ -70,29 +79,47 @@ export default {
     onSubmit () {
       // 如果帳號密碼驗證通過
       if (this.accountState && this.passwordState) {
-        this.axios.post(process.env.VUE_APP_API + '/users/', this.$data)
-          .then(res => {
-            if (res.data.success) {
-              this.$swal({
-                icon: 'success',
-                title: '註冊成功',
-                text: '歡迎加入線上相簿'
-              })
-            } else {
+        if (this.image.size > 1024 * 1024) {
+          this.$swal({
+            icon: 'error',
+            title: '錯誤',
+            text: '圖片太大'
+          })
+        } else if (!this.image.type.includes('image')) {
+          this.$swal({
+            icon: 'error',
+            title: '錯誤',
+            text: '檔案格式錯誤'
+          })
+        } else {
+          const fd = new FormData()
+          fd.append('account', this.account)
+          fd.append('password', this.password)
+          fd.append('image', this.image)
+          this.axios.post(process.env.VUE_APP_API + '/users/', fd)
+            .then(res => {
+              if (res.data.success) {
+                this.$swal({
+                  icon: 'success',
+                  title: '註冊成功',
+                  text: '歡迎加入線上相簿'
+                })
+              } else {
+                this.$swal({
+                  icon: 'error',
+                  title: '發生錯誤',
+                  text: res.data.message
+                })
+              }
+            })
+            .catch(err => {
               this.$swal({
                 icon: 'error',
                 title: '發生錯誤',
-                text: res.data.message
+                text: err.response.data.message
               })
-            }
-          })
-          .catch(err => {
-            this.$swal({
-              icon: 'error',
-              title: '發生錯誤',
-              text: err.response.data.message
             })
-          })
+        }
       }
     },
     onReset () {

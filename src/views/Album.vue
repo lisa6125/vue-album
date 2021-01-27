@@ -65,8 +65,8 @@ export default {
         return true
       }
     },
-    user () {
-      return this.$store.state.user
+    albumuser () {
+      return this.$store.state.albumuser
     }
   },
   methods: {
@@ -173,7 +173,7 @@ export default {
     }
   },
   mounted () {
-    this.axios.get(process.env.VUE_APP_API + '/albums/user/' + this.user.id)
+    this.axios.get(process.env.VUE_APP_API + '/albums/user/' + this.albumuser._id)
       .then(res => {
         if (res.data.success) {
           this.images = res.data.result.map(image => {

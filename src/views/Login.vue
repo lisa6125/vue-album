@@ -73,6 +73,7 @@ export default {
         this.axios.post(process.env.VUE_APP_API + '/users/login', this.$data)
           .then(res => {
             if (res.data.success) {
+              res.data.result.file = process.env.VUE_APP_API + '/albums/file/' + res.data.result.file
               this.$store.commit('login', res.data.result)
               this.$swal({
                 icon: 'success',

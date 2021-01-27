@@ -6,10 +6,12 @@
         b-navbar-toggle(target='nav-collapse')
         b-collapse#nav-collapse(is-nav)
           b-navbar-nav.ml-auto
-            b-nav-item(v-if="user.id.length === 0" to='/login') 登入
-            b-nav-item(v-if="user.id.length === 0" to='/reg') 註冊
-            b-nav-item(v-if="user.id.length > 0" to='/album') 我的相簿
-            b-nav-item(v-if="user.id.length > 0" @click="logout") 登出
+            b-nav-item(v-if="albumuser._id.length === 0" to='/login') 登入
+            b-nav-item(v-if="albumuser._id.length === 0" to='/reg') 註冊
+            .mypic(v-if="albumuser._id.length > 0")
+              img(:src='albumuser.file' v-if="albumuser._id.length > 0")
+            b-nav-item(v-if="albumuser._id.length > 0" to='/album') 我的相簿
+            b-nav-item(v-if="albumuser._id.length > 0" @click="logout") 登出
     router-view
 </template>
 
@@ -17,8 +19,8 @@
 export default {
   name: 'App',
   computed: {
-    user () {
-      return this.$store.state.user
+    albumuser () {
+      return this.$store.state.albumuser
     }
   },
   methods: {
@@ -61,7 +63,7 @@ export default {
       this.axios.get(process.env.VUE_APP_API + '/users/heartbeat')
         .then(res => {
           // 如果 vuex 是登入中
-          if (this.user.id.length > 0) {
+          if (this.albumuser._id.length > 0) {
             // 但是後端沒登入
             if (!res.data) {
               this.$swal({
@@ -78,12 +80,13 @@ export default {
             }
           }
         })
-        .catch(() => {
+        .catch((err) => {
           this.$swal({
             icon: 'error',
             title: '錯誤',
             text: '發生錯誤'
           })
+          console.log(err)
           // 登出
           this.$store.commit('logout')
           // 導回首頁
@@ -101,3 +104,18 @@ export default {
   }
 }
 </script>
+
+<style lang="stylus" scoped>
+.mypic{
+  height 50px
+  width 50px
+  background white
+  border-radius 50%
+  overflow hidden
+  img{
+    width 100%
+    height 100%
+    object-fit cover
+  }
+}
+</style>

@@ -6,19 +6,22 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    user: {
+    albumuser: {
       name: '',
-      id: ''
+      _id: '',
+      file: ''
     }
   },
   mutations: {
     logout (state) {
-      state.user.name = ''
-      state.user.id = ''
+      state.albumuser.name = ''
+      state.albumuser._id = ''
+      state.albumuser.file = ''
     },
     login (state, data) {
-      state.user.name = data.account
-      state.user.id = data._id
+      state.albumuser.name = data.account
+      state.albumuser._id = data._id
+      state.albumuser.file = data.file
     }
   },
   actions: {
