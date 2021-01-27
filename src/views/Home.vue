@@ -51,3 +51,13 @@ export default {
   }
 }
 </script>
+<style lang="stylus" scoped>
+.item{
+  padding 30px
+  width: 25%
+  .post{
+    border 3px solid rgba(0,0,0,0.1)
+    border-radius 10px
+  }
+}
+</style>
