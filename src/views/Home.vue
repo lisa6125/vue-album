@@ -1,10 +1,48 @@
-<template lang='pug'>
-  h1.text-center 歡迎使用線上相簿
+<template>
+  <div class='container home'>
+    <h1 class='text-center'>歡迎使用線上相簿</h1>
+    <Photoswipe>
+      <div v-masonry="containerId" transition-duration="0.3s" item-selector=".item">
+        <div v-masonry-tile class="item" v-for="(item, index) in shares" :key="index">
+          <div class="post">
+            <img :src="item.src" v-pswp="item" alt="" />
+          </div>
+        </div>
+      </div>
+    </Photoswipe>
+  </div>
 </template>
 
 <script>
 
 export default {
-  name: 'Home'
+  name: 'Home',
+  mounted () {
+    this.axios.get(process.env.VUE_APP_API + '/albums/')
+      .then(res => {
+        if (res.data.success) {
+          this.images = res.data.result.map(image => {
+            image.src = process.env.VUE_APP_API + '/albums/file/' + image.file
+            image.title = image.description
+            delete image.file
+            delete image.description
+            return image
+          })
+        } else {
+          this.$swal({
+            icon: 'error',
+            title: '錯誤',
+            text: res.data.message
+          })
+        }
+      })
+      .catch(err => {
+        this.$swal({
+          icon: 'error',
+          title: '錯誤',
+          text: err.response.data.message
+        })
+      })
+  }
 }
 </script>
