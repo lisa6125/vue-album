@@ -19,11 +19,11 @@
     "vue": "^2.6.11",
     "vue-axios": "^3.2.0",
     "vue-gtag": "^1.10.0",
-    "vue-masonry": "^0.12.0",
-    "vue-star": "0.0.4",
     "vue-img-inputer": "^2.1.6",
+    "vue-masonry": "^0.12.0",
     "vue-pswipe": "^0.15.1",
     "vue-router": "^3.2.0",
+    "vue-star": "^0.0.4",
     "vue-sweetalert2": "^4.1.1",
     "vuex": "^3.4.0",
     "vuex-persistedstate": "^3.1.0"
