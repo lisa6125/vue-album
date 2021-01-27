@@ -1,6 +1,9 @@
 <template>
   <div class='container home'>
     <h1 class='text-center'>歡迎使用線上相簿</h1>
+    <vue-star animate="animated bounceIn" color="#F05654">
+      <i slot="icon" class="fa fa-heart"></i>
+    </vue-star>
     <Photoswipe>
       <div v-masonry="containerId" transition-duration="0.3s" item-selector=".item">
         <div v-masonry-tile class="item" v-for="(item, index) in images" :key="index">
@@ -62,11 +65,21 @@ export default {
 </script>
 <style lang="stylus" scoped>
 .item{
-  padding 30px
-  width: 25%
+  margin 0 auto
+  width 33%
+  padding 10px
+  @media screen and (max-width:576px) {
+    width 100%
+  }
   .post{
-    border 3px solid rgba(0,0,0,0.1)
+    padding 10px
     border-radius 10px
+    border 3px solid rgba(0,0,0,0.1)
+    img{
+      width 100%
+      height 100%
+      object-fit cover
+    }
   }
 }
 </style>
