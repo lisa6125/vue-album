@@ -177,6 +177,15 @@ export const user = async (req, res) => {
   }
 }
 
+export const alluser = async (req, res) => {
+  try {
+    const result = await albums.find()
+    res.status(200).send({ success: true, message: '', result })
+  } catch (error) {
+    res.status(500).send({ success: false, message: '伺服器錯誤' })
+  }
+}
+
 export const file = async (req, res) => {
   if (req.session.user === undefined) {
     res.status(401).send({ success: false, message: '未登入' })

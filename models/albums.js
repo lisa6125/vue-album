@@ -13,6 +13,9 @@ const albumSchema = new Schema({
   file: {
     type: String,
     required: [true, '缺少檔名']
+  },
+  count: {
+    type: Number
   }
 },
 {
