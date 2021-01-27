@@ -3,7 +3,7 @@
     <h1 class='text-center'>歡迎使用線上相簿</h1>
     <Photoswipe>
       <div v-masonry="containerId" transition-duration="0.3s" item-selector=".item">
-        <div v-masonry-tile class="item" v-for="(item, index) in shares" :key="index">
+        <div v-masonry-tile class="item" v-for="(item, index) in images" :key="index">
           <div class="post">
             <img :src="item.src" v-pswp="item" alt="" />
           </div>
@@ -17,6 +17,11 @@
 
 export default {
   name: 'Home',
+  data () {
+    return {
+      images: []
+    }
+  },
   mounted () {
     this.axios.get(process.env.VUE_APP_API + '/albums/')
       .then(res => {
