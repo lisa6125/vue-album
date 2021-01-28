@@ -11,7 +11,7 @@ import routerAlbum from './routers/albums.js'
 
 dotenv.config()
 
-mongoose.connect(process.env.DBURL) //, { useNewUrlParser: true, useUnifiedTopology: true }
+mongoose.connect(process.env.DBURL, { useNewUrlParser: true, useUnifiedTopology: true })
 
 const app = express()
 
