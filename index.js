@@ -34,13 +34,13 @@ app.use(cors({
   credentials: true
 }))
 
-// const MongoStore = connectMongo(session)
-// app.use(session({
-//   secret: '123',
-//   store: new MongoStore({
-//     mongooseConnection: mongoose.connection
-//   })
-// }))
+const MongoStore = connectMongo(session)
+app.use(session({
+  secret: '123',
+  store: new MongoStore({
+    mongooseConnection: mongoose.connection
+  })
+}))
 const MongoStore = connectMongo(session)
 const sessionSettings = {
   secret: 'album',
