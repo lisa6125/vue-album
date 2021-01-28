@@ -48,7 +48,7 @@ const router = new VueRouter({
   routes
 })
 router.beforeEach((to, from, next) => {
-  if (to.meta.login && !store.state.user.id) {
+  if (to.meta.login && !store.state.albumuser.id) {
     next('/login')
   } else {
     next()
@@ -58,7 +58,7 @@ router.beforeEach((to, from, next) => {
 router.afterEach((to, from) => {
   let title = ''
   if (to.name === 'Album') {
-    title = store.state.user.name + '的相簿'
+    title = store.state.albumuser.name + '的相簿'
   } else {
     title = to.meta.title
   }

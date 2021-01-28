@@ -104,6 +104,7 @@ export default {
                   title: '註冊成功',
                   text: '歡迎加入線上相簿'
                 })
+                this.$router.push('/login')
               } else {
                 this.$swal({
                   icon: 'error',
