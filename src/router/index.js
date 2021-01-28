@@ -48,7 +48,7 @@ const router = new VueRouter({
   routes
 })
 router.beforeEach((to, from, next) => {
-  if (to.meta.login && !store.state.albumuser.id) {
+  if (to.meta.login && !store.state.albumuser._id) {
     next('/login')
   } else {
     next()
