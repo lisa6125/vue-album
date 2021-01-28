@@ -7,6 +7,7 @@ import albums from '../models/albums.js'
 
 // 本機開發，檔案存電腦
 // 雲端環境，檔案存 FTP
+// 上傳檔案的儲存設定
 const storage = multer.diskStorage({
   // req 請求
   // file 檔案資訊
@@ -52,6 +53,7 @@ const upload = multer({
     fileSize: 1024 * 1024
   }
 })
+
 
 export const create = async (req, res) => {
   if (req.session.albumuser === undefined) {
