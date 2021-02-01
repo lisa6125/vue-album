@@ -224,7 +224,8 @@ export const file = async (req, res) => {
   } else {
     axios({
       method: 'GET',
-      url: 'http://' + process.env.FTP_HOST + '/' + process.env.FTP_USER + '/' + req.params.file
+      url: 'http://' + process.env.FTP_HOST + '/' + process.env.FTP_USER + '/' + req.params.file,
+      responseType: 'stream'
     }).then(ress => {
       ress.data.pipe(res)
     }).catch(error => {
