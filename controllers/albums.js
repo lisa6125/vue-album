@@ -1,5 +1,6 @@
 import multer from 'multer'
 import FTPStorage from 'multer-ftp'
+import axios from 'axios'
 import path from 'path'
 import fs from 'fs'
 

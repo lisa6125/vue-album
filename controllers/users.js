@@ -2,7 +2,6 @@ import md5 from 'md5'
 import multer from 'multer'
 import FTPStorage from 'multer-ftp'
 import path from 'path'
-import fs from 'fs'
 import users from '../models/users.js'
 
 let storage
